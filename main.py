@@ -69,7 +69,7 @@ args = parser.parse_args()
 baselr = 1e-3
 batch_size = 16
 
-torch.cuda.set_device(1)
+torch.cuda.set_device(0)
 
 dataset = MyDataset('/home/france/Documents/Dataset/uniform/train',
                     transform=Augmentation(size=256, mean=(128)))
@@ -82,7 +82,7 @@ from lite_flownet import liteflownet
 
 model = liteflownet(args.resume)
 # model = nn.DataParallel(model) #就单GPU走一波吧
-#model.cuda()
+model.cuda()
 summary(model, input_size=(2, 3, 256, 256))
 
 optimizer = optim.Adam(model.parameters(), lr=baselr, betas=(0.9, 0.999), amsgrad=False)
@@ -100,7 +100,7 @@ def train(imgL, imgR, flowl0):
     with torch.no_grad():
         flowl0 = Variable(torch.FloatTensor(flowl0.float()))
 
-#    imgL, imgR, flowl0 = imgL.cuda(), imgR.cuda(), flowl0.cuda()
+    imgL, imgR, flowl0 = imgL.cuda(), imgR.cuda(), flowl0.cuda()
     # forward-backward
     optimizer.zero_grad()
     output = model((imgL, imgR))

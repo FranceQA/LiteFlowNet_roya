@@ -4,7 +4,7 @@ import cv2 as cv
 from torch.utils.data import Dataset
 from glob import glob
 import os
-from models.PWCNet import lite_flownet 
+from lite_flownet import liteflownet 
 import torch
 from torch.autograd import Variable
 from utils.multiscaleloss import realEPE,RMSE
