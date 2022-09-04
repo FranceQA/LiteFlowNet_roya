@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 184, in <module>
+    main()
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 139, in main
+    loss, vis = train(imgL_crop, imgR_crop, flowl0)
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 107, in train
+    output = model((imgL, imgR))
+  File "/home/france/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/france/Documents/LiteFlowNet_roya/lite_flownet.py", line 370, in forward
+    tenFlow = self.netMatching[intLevel](tenFirst[intLevel], tenSecond[intLevel], tenFeaturesFirst[intLevel], tenFeaturesSecond[intLevel], tenFlow)
+  File "/home/france/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/france/Documents/LiteFlowNet_roya/lite_flownet.py", line 179, in forward
+    input=correlation.FunctionCorrelation(tenFirst=tenFeaturesFirst, tenSecond=tenFeaturesSecond,
+AttributeError: module 'correlation' has no attribute 'FunctionCorrelation'

@@ -1,0 +1,13 @@
+/home/france/anaconda3/lib/python3.9/site-packages/cupy/cuda/compiler.py:461: UserWarning: cupy.cuda.compile_with_cache has been deprecated in CuPy v10, and will be removed in the future. Use cupy.RawModule or cupy.RawKernel instead.
+  warnings.warn(
+Epoch 1 Iter 19/112 training loss = 81122.273 , RMSE = 2.244 , time = 0.17
+Epoch 1 Iter 39/112 training loss = 133454.844 , RMSE = 2.879 , time = 0.17
+Epoch 1 Iter 59/112 training loss = 72056.062 , RMSE = 2.119 , time = 0.17
+Epoch 1 Iter 79/112 training loss = 76184.344 , RMSE = 2.182 , time = 0.17
+Epoch 1 Iter 99/112 training loss = 53512.230 , RMSE = 1.821 , time = 0.17
+Traceback (most recent call last):
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 184, in <module>
+    main()
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 157, in main
+    test_rmsef,test_epe= eval_with_epe(model, TestImgLoader)
+NameError: name 'eval_with_epe' is not defined

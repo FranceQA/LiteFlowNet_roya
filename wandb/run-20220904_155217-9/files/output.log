@@ -1,0 +1,29 @@
+/home/france/anaconda3/lib/python3.9/site-packages/cupy/cuda/compiler.py:461: UserWarning: cupy.cuda.compile_with_cache has been deprecated in CuPy v10, and will be removed in the future. Use cupy.RawModule or cupy.RawKernel instead.
+  warnings.warn(
+Epoch 1 Iter 19/112 training loss = 83034.312 , RMSE = 2.271 , time = 0.18
+Epoch 1 Iter 39/112 training loss = 72803.258 , RMSE = 2.129 , time = 0.16
+Epoch 1 Iter 59/112 training loss = 49299.062 , RMSE = 1.749 , time = 0.17
+Epoch 1 Iter 79/112 training loss = 92218.680 , RMSE = 2.396 , time = 0.16
+Epoch 1 Iter 99/112 training loss = 59917.336 , RMSE = 1.927 , time = 0.17
+evaluating...
+ 12%|████████▎                                                         | 1/8 [00:01<00:08,  1.28s/it]
+Traceback (most recent call last):
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 184, in <module>
+    main()
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 157, in main
+    test_rmsef,test_epe= eval_with_epe(model, TestImgLoader)
+  File "/home/france/Documents/LiteFlowNet_roya/eval.py", line 66, in eval_with_epe
+    output = model((imgL, imgR))
+  File "/home/france/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/france/Documents/LiteFlowNet_roya/lite_flownet.py", line 370, in forward
+    tenFlow = self.netMatching[intLevel](tenFirst[intLevel], tenSecond[intLevel], tenFeaturesFirst[intLevel], tenFeaturesSecond[intLevel], tenFlow)
+  File "/home/france/anaconda3/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/france/Documents/LiteFlowNet_roya/lite_flownet.py", line 184, in forward
+    input=correlation.FunctionCorrelation(tenFirst=tenFeaturesFirst, tenSecond=tenFeaturesSecond,
+  File "/home/france/Documents/LiteFlowNet_roya/./correlation/correlation.py", line 394, in FunctionCorrelation
+    return _FunctionCorrelation.apply(tenFirst, tenSecond, intStride)
+  File "/home/france/Documents/LiteFlowNet_roya/./correlation/correlation.py", line 283, in forward
+    rbot1 = first.new_zeros([ first.shape[0], first.shape[2] + (6 * intStride), first.shape[3] + (6 * intStride), first.shape[1] ])
+RuntimeError: CUDA out of memory. Tried to allocate 58.00 MiB (GPU 0; 7.79 GiB total capacity; 5.78 GiB already allocated; 15.06 MiB free; 5.80 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

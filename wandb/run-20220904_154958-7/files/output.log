@@ -1,0 +1,17 @@
+/home/france/anaconda3/lib/python3.9/site-packages/cupy/cuda/compiler.py:461: UserWarning: cupy.cuda.compile_with_cache has been deprecated in CuPy v10, and will be removed in the future. Use cupy.RawModule or cupy.RawKernel instead.
+  warnings.warn(
+Epoch 1 Iter 19/112 training loss = 84133.727 , RMSE = 2.281 , time = 0.16
+Epoch 1 Iter 39/112 training loss = 133296.172 , RMSE = 2.882 , time = 0.17
+Epoch 1 Iter 59/112 training loss = 47189.012 , RMSE = 1.717 , time = 0.18
+Epoch 1 Iter 79/112 training loss = 113036.734 , RMSE = 2.652 , time = 0.18
+Epoch 1 Iter 99/112 training loss = 76924.383 , RMSE = 2.188 , time = 0.18
+evaluating...
+  0%|                                                                          | 0/8 [00:01<?, ?it/s]
+Traceback (most recent call last):
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 184, in <module>
+    main()
+  File "/home/france/Documents/LiteFlowNet_roya/main.py", line 157, in main
+    test_rmsef,test_epe= eval_with_epe(model, TestImgLoader)
+  File "/home/france/Documents/LiteFlowNet_roya/eval.py", line 67, in eval_with_epe
+    total_test_epe += [realEPE(output.detach(), flowl0.detach()).cpu().numpy()]
+UnboundLocalError: local variable 'total_test_epe' referenced before assignment

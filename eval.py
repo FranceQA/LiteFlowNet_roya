@@ -49,3 +49,22 @@ def eval(model,ImgLoader):
     return np.mean(total_test_rmse)
 
 
+def eval_with_epe(model,ImgLoader):
+    total_test_rmse = []
+    total_test_epe = []
+    iterator = iter(ImgLoader)
+    step = len(ImgLoader)
+    # step = 50
+    model.eval()
+    print('evaluating... ')
+    for i in tqdm(range(step)):
+        img1, img2, flo = next(iterator)
+        img1 = Variable(torch.FloatTensor(img1.float()))
+        img2 = Variable(torch.FloatTensor(img2.float()))
+        flo = Variable(torch.FloatTensor(flo.float()))
+        imgL, imgR, flowl0 = img1.cuda(), img2.cuda(), flo.cuda()
+        output = model((imgL, imgR))
+        total_test_rmse += [RMSE(output.detach(), flowl0.detach()).cpu().numpy()]
+        total_test_epe += [realEPE(output.detach(), flowl0.detach()).cpu().numpy()]
+    return np.mean(total_test_rmse), np.mean(total_test_epe)
+
