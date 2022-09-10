@@ -31,7 +31,8 @@ from glob import glob
 import cv2 as cv
 from tqdm import tqdm
 from eval import eval
-
+from eval import eval_with_epe
+import wandb
 
 def find_NewFile(path):
     # 获取文件夹中的所有文�?
@@ -66,14 +67,14 @@ parser.add_argument('--ngpus', type=int, default=2,
                     help='number of gpus to use.')
 args = parser.parse_args()
 
-baselr = 1e-3
-batch_size = 16
+baselr = 1.25e-4
+batch_size = 8
 
 torch.cuda.set_device(0)
 
-dataset = MyDataset('/home/france/Documents/Dataset/uniform/train',
+dataset = MyDataset('/home/france/Documents/uniform/train',
                     transform=Augmentation(size=256, mean=(128)))
-test_dataset = MyDataset('/home/france/Documents/Dataset/uniform/test',
+test_dataset = MyDataset('/home/france/Documents/uniform/test',
                          transform=Basetransform(size=256, mean=(128)))
 
 print('%d batches per epoch' % (len(dataset) // batch_size))
@@ -126,6 +127,9 @@ def main():
     start_full_time = time.time()
     start_epoch = 1 if args.resume is None else int(re.findall('(\d+)', args.resume)[0]) + 1
     total_iters = 0
+    
+    wandb.watch(model)
+    
     for epoch in range(start_epoch, args.epochs + 1):
         total_train_loss = 0
         total_train_rmse = 0
@@ -148,14 +152,33 @@ def main():
         torch.save(
             {'epoch': epoch, 'state_dict': save_dict, 'train_loss': total_train_loss / len(TrainImgLoader), },
             savefilename)
+        
+        
+        test_rmsef,test_epe= eval_with_epe(model, TestImgLoader)
+        train_rmsef,train_epe= eval_with_epe(model, TrainImgLoader)
+        
+        wandb.log({"Train loss":total_train_loss / len(TrainImgLoader),
+        	"Test rmse":test_rmsef,
+        	"Train rmse":train_rmsef,
+        	"Learning rate": optimizer.param_groups[0]['lr'],
+        	"Test EPE":test_epe,
+        	"Train EPE":train_epe})
+           
         log.scalar_summary('train/loss', total_train_loss / len(TrainImgLoader), epoch)
         log.scalar_summary('train/RMSE', total_train_rmse / len(TrainImgLoader), epoch)
-        log.scalar_summary('test/RMSE', eval(model, TestImgLoader), epoch)
+        log.scalar_summary('test/RMSE', test_rmsef, epoch)
         log.scalar_summary('train/learning rate', optimizer.param_groups[0]['lr'], epoch)
         scheduler.step(total_train_loss / len(TrainImgLoader))
 
     print('full finetune time = %.2f HR' % ((time.time() - start_full_time) / 3600))
+    torch.save(model.state_dict(), os.path.join(wandb.run.dir, 'model.pt'))
 
+if __name__ == '__main__':    
+    wandb.init(project="roya",
 
-if __name__ == '__main__':
+               name="liteflownet_roya",
+
+               resume=True,
+
+               id="9")
     main()
