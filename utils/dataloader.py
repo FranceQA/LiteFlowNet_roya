@@ -30,15 +30,15 @@ def load_data(path):
     return flo_paths, img0_paths, img1_paths
 
 def load_data_roya(path):
-  videos = glob(os.path.join('/content/videos/'+'*'))
+  videos = glob(os.path.join(path,'group_1/*'))
 
   flo, img0, img1 = [], [], []
   for video in videos:
-    img_paths = glob(os.path.join(video,'ima/*.png')); img_path.sort()
+    img_paths = glob(os.path.join(video,'*.png')); img_path.sort()
     img0_paths = img_paths[0:-1]
     img1_paths = img_paths[1:]
     flo_paths = [x.replace('.png', '.flo') for x in img0_paths]
-    flo_paths = [x.replace('ima', 'flow') for x in flo_paths]
+    flo_paths = [x.replace('group_1', 'flow') for x in flo_paths]
 
     flo = flo + flo_paths
     img0 = img0 + img0_paths
