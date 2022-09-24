@@ -1,0 +1,88 @@
+2022-09-17 09:15:59,223 INFO    StreamThr :144142 [internal.py:wandb_internal():88] W&B internal server running at pid: 144142, started at: 2022-09-17 09:15:59.222440
+2022-09-17 09:15:59,227 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: status
+2022-09-17 09:15:59,228 DEBUG   SenderThread:144142 [sender.py:send_request():315] send_request: status
+2022-09-17 09:15:59,231 DEBUG   SenderThread:144142 [sender.py:send():301] send: header
+2022-09-17 09:15:59,231 INFO    WriterThread:144142 [datastore.py:open_for_write():75] open: /home/fquesada/Documents/LiteFlowNet_roya/wandb/run-20220917_091559-2/run-2.wandb
+2022-09-17 09:15:59,232 DEBUG   SenderThread:144142 [sender.py:send():301] send: run
+2022-09-17 09:15:59,234 INFO    SenderThread:144142 [sender.py:_maybe_setup_resume():577] checking resume status for None/roya_modelos/2
+2022-09-17 09:16:28,324 ERROR   SenderThread:144142 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/util/connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7feaa98e03a0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7feaa98e03a0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py", line 199, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7feaa98e03a0>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2022-09-17 09:16:29,241 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:34,342 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:39,443 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:44,544 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:49,645 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:54,745 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:16:59,846 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:04,947 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:10,048 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:15,149 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:20,250 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:25,351 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:30,451 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:35,552 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:40,653 DEBUG   HandlerThread:144142 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:17:44,345 WARNING StreamThr :144142 [internal.py:is_dead():385] Internal process exiting, parent pid 144134 disappeared
+2022-09-17 09:17:44,345 ERROR   StreamThr :144142 [internal.py:wandb_internal():147] Internal process shutdown.
+2022-09-17 09:17:44,658 INFO    HandlerThread:144142 [handler.py:finish():807] shutting down handler
+2022-09-17 09:17:45,262 INFO    WriterThread:144142 [datastore.py:close():279] close: /home/fquesada/Documents/LiteFlowNet_roya/wandb/run-20220917_091559-2/run-2.wandb
+2022-09-17 09:17:46,355 INFO    MainThread:144142 [internal.py:handle_exit():78] Internal process exited
+2022-09-17 09:17:46,356 WARNING MsgRouterThr:144142 [router.py:message_loop():74] EOFError seen in message_loop

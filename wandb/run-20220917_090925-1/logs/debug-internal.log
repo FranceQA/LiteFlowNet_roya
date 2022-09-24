@@ -1,0 +1,135 @@
+2022-09-17 09:09:25,030 INFO    StreamThr :144096 [internal.py:wandb_internal():88] W&B internal server running at pid: 144096, started at: 2022-09-17 09:09:25.029074
+2022-09-17 09:09:25,033 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: status
+2022-09-17 09:09:25,036 DEBUG   SenderThread:144096 [sender.py:send_request():315] send_request: status
+2022-09-17 09:09:25,042 DEBUG   SenderThread:144096 [sender.py:send():301] send: header
+2022-09-17 09:09:25,042 INFO    WriterThread:144096 [datastore.py:open_for_write():75] open: /home/fquesada/Documents/LiteFlowNet_roya/wandb/run-20220917_090925-1/run-1.wandb
+2022-09-17 09:09:25,154 DEBUG   SenderThread:144096 [sender.py:send():301] send: run
+2022-09-17 09:09:25,156 INFO    SenderThread:144096 [sender.py:_maybe_setup_resume():577] checking resume status for None/roya_modelos/1
+2022-09-17 09:09:55,196 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:09:55,478 ERROR   SenderThread:144096 [retry.py:__call__():154] Retry attempt failed:
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/util/connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/socket.py", line 955, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 703, in urlopen
+    httplib_response = self._make_request(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 386, in _make_request
+    self._validate_conn(conn)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 1042, in _validate_conn
+    conn.connect()
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 358, in connect
+    self.sock = conn = self._new_conn()
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connection.py", line 186, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPSConnection object at 0x7f1c65c34400>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/adapters.py", line 489, in send
+    resp = conn.urlopen(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    retries = retries.increment(
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/urllib3/util/retry.py", line 592, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1c65c34400>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/sdk/lib/retry.py", line 113, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/sdk/internal/internal_api.py", line 199, in execute
+    return self.client.execute(*args, **kwargs)  # type: ignore
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/wandb/vendor/gql-0.2.0/wandb_gql/transport/requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/sessions.py", line 587, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/sessions.py", line 701, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/fquesada/anaconda3/envs/roya_fquesada/lib/python3.10/site-packages/requests/adapters.py", line 565, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f1c65c34400>: Failed to establish a new connection: [Errno -3] Temporary failure in name resolution'))
+2022-09-17 09:10:00,297 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:05,398 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:10,499 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:15,600 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:20,701 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:25,802 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:30,903 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:36,004 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:41,105 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:46,207 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:51,307 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:10:56,408 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:01,509 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:06,610 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:11,710 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:16,811 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:21,912 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:27,013 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:32,114 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:37,215 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:42,316 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:47,417 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:52,518 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:11:57,619 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:02,720 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:07,821 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:12,922 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:18,023 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:23,124 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:28,225 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:33,326 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:38,426 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:43,527 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:48,628 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:53,729 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:12:58,830 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:03,930 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:09,031 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:14,132 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:19,232 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:24,333 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:29,434 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:34,535 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:39,636 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:44,737 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:49,838 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:13:54,939 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:00,039 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:05,141 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:10,241 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:15,342 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:20,443 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:25,544 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:30,645 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:35,746 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:40,848 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:45,949 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:51,050 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:14:56,151 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:01,252 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:06,353 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:11,454 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:16,555 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:21,656 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:26,757 DEBUG   HandlerThread:144096 [handler.py:handle_request():138] handle_request: poll_exit
+2022-09-17 09:15:32,470 INFO    MainThread:144096 [internal.py:handle_exit():78] Internal process exited
+2022-09-17 09:15:32,471 WARNING MsgRouterThr:144096 [router.py:message_loop():74] EOFError seen in message_loop

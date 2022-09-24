@@ -23,7 +23,7 @@ from utils.flowlib import flow_to_image
 from utils import logger
 from torchsummary import summary
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from utils.dataloader import MyDataset
+from utils.dataloader import MyDataset,MyDataset_roya
 from utils.augmentations import Augmentation, Basetransform
 torch.backends.cudnn.benchmark = True
 from utils.multiscaleloss import MultiscaleLoss, realEPE, RMSE
@@ -67,20 +67,20 @@ parser.add_argument('--ngpus', type=int, default=2,
 args = parser.parse_args()
 
 baselr = 1e-3
-batch_size = 16
+batch_size =1
 
 torch.cuda.set_device(0)
 
 dataset = MyDataset('/home/france/Documents/Dataset/uniform/train',
                     transform=Augmentation(size=256, mean=(128)))
-test_dataset = MyDataset('/home/france/Documents/Dataset/uniform/test',
+test_dataset = MyDataset_roya('/home/fquesada/Documents/esporas_max/roya_dataset_1/validate',
                          transform=Basetransform(size=256, mean=(128)))
 
-print('%d batches per epoch' % (len(dataset) // batch_size))
+print('%d batches per epoch' % (len(test_dataset) // batch_size))
 
 from lite_flownet import liteflownet
 
-model = liteflownet(args.resume)
+model = liteflownet('/home/fquesada/modelos/LFN/logname/finetune_40.tar')
 # model = nn.DataParallel(model) #就单GPU走一波吧
 model.cuda()
 summary(model, input_size=(2, 3, 256, 256))
@@ -89,7 +89,7 @@ optimizer = optim.Adam(model.parameters(), lr=baselr, betas=(0.9, 0.999), amsgra
 # optimizer = optim.SGD(model.parameters(), lr=baselr, momentum=0.9,  weight_decay=5e-4)
 criterion = MultiscaleLoss()
 scheduler = ReduceLROnPlateau(optimizer, 'min', factor=0.5, patience=4, verbose=True)
-TestImgLoader = torch.utils.data.DataLoader(test_dataset, batch_size=12, shuffle=True, num_workers=12,
+TestImgLoader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=True, num_workers=12,
                                             drop_last=True, pin_memory=True)
 
 

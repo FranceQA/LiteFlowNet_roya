@@ -9,10 +9,13 @@ import PIL
 import PIL.Image
 import sys
 
-try:
-    from .correlation import correlation   # the custom cost volume layer
-except:
-    sys.path.insert(0, './correlation'); import correlation
+#try:
+#    print('FRANCE TRY')
+from correlation import correlation   # the custom cost volume layer
+#    print('FRANCE DONE')
+#except:
+#    print('FRANCE CAN NOT')
+#    sys.path.insert(0, './correlation'); import correlation
 # you should consider upgrading python
 # end
 

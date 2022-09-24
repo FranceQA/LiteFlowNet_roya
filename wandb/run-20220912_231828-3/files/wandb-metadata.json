@@ -1,0 +1,24 @@
+{
+    "os": "Linux-5.15.0-46-generic-x86_64-with-glibc2.31",
+    "python": "3.10.4",
+    "heartbeatAt": "2022-09-13T05:18:29.638751",
+    "startedAt": "2022-09-13T05:18:28.692798",
+    "docker": null,
+    "gpu": "GRID P6-16C",
+    "gpu_count": 1,
+    "cpu_count": 16,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/fquesada/Documents/LiteFlowNet_roya/main.py",
+    "codePath": "main.py",
+    "git": {
+        "remote": "https://github.com/FranceQA/LiteFlowNet_roya.git",
+        "commit": "828843d3f38b6505832c3ca7a52fdea564d3bee4"
+    },
+    "email": null,
+    "root": "/home/fquesada/Documents/LiteFlowNet_roya",
+    "host": "ubuntu-p6",
+    "username": "fquesada",
+    "executable": "/home/fquesada/anaconda3/envs/roya_fquesada/bin/python3"
+}

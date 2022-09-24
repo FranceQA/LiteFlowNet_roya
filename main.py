@@ -23,7 +23,7 @@ from utils.flowlib import flow_to_image
 from utils import logger
 from torchsummary import summary
 from torch.optim.lr_scheduler import ReduceLROnPlateau
-from utils.dataloader import MyDataset
+from utils.dataloader import MyDataset, MyDataset_roya
 from utils.augmentations import Augmentation, Basetransform
 torch.backends.cudnn.benchmark = True
 from utils.multiscaleloss import MultiscaleLoss, realEPE, RMSE
@@ -55,9 +55,9 @@ parser.add_argument('--database', default='/',
                     help='path to the database')
 parser.add_argument('--epochs', type=int, default=500,
                     help='number of epochs to train')
-parser.add_argument('--loadmodel', default=None,
+parser.add_argument('--loadmodel', default='home/fquesada/modelos/LFN/logname/finetune_6.tar',
                     help='path of the pre-trained model')
-parser.add_argument('--savemodel', default='./',
+parser.add_argument('--savemodel', default='/home/fquesada/modelos/LFN',
                     help='path to save the model')
 parser.add_argument('--resume', default=None,
                     help='whether to reset moving mean / other hyperparameters')
@@ -72,9 +72,9 @@ batch_size = 8
 
 torch.cuda.set_device(0)
 
-dataset = MyDataset('/home/france/Documents/uniform/train',
+dataset = MyDataset_roya('/home/fquesada/Documents/esporas_max/roya_dataset_1/training',
                     transform=Augmentation(size=256, mean=(128)))
-test_dataset = MyDataset('/home/france/Documents/uniform/test',
+test_dataset = MyDataset_roya('/home/fquesada/Documents/esporas_max/roya_dataset_1/validate',
                          transform=Basetransform(size=256, mean=(128)))
 
 print('%d batches per epoch' % (len(dataset) // batch_size))
@@ -174,11 +174,9 @@ def main():
     torch.save(model.state_dict(), os.path.join(wandb.run.dir, 'model.pt'))
 
 if __name__ == '__main__':    
-    wandb.init(project="roya",
-
+    wandb.init(
+               project="proyecto_roya",
                name="liteflownet_roya",
-
                resume=True,
-
-               id="9")
+               id="1")
     main()

@@ -9,7 +9,7 @@ import torch
 from torch.autograd import Variable
 from utils.multiscaleloss import realEPE,RMSE
 from tqdm import tqdm
-from utils.dataloader import MyDataset
+from utils.dataloader import MyDataset,MyDataset_roya
 from utils.augmentations import Basetransform
 from utils.flowlib import *
 import torch.nn.functional as F
@@ -18,6 +18,28 @@ __all__ = [
     'eval'
 ]
 
+#======================================================================
+#Visualizador
+
+def write_flo(flow, filename):
+    """
+    write optical flow in Middlebury .flo format
+    :param flow: optical flow map
+    :param filename: optical flow file path to be saved
+    :return: None
+    """
+    flow = flow[0, :, :, :]
+    f = open(filename, 'wb')
+    magic = np.array([202021.25], dtype=np.float32)
+    height, width = flow.shape[:2]
+    magic.tofile(f)
+    np.int32(width).tofile(f)
+    np.int32(height).tofile(f)
+    data = np.float32(flow).flatten()
+    data.tofile(f)
+    f.close()
+
+#======================================================================
 
 def find_NewFile(path):
     # 获取文件夹中的所有文�?
@@ -46,6 +68,13 @@ def eval(model,ImgLoader):
         imgL, imgR, flowl0 = img1.cuda(), img2.cuda(), flo.cuda()
         output = model((imgL, imgR))
         total_test_rmse += [RMSE(output.detach(), flowl0.detach()).cpu().numpy()]
+        #if i == 200:
+        #    a = output.detach().cpu()
+        #    b = flowl0.detach().cpu()
+        #    print(np.array(b))
+        #    print(np.array(a).shape)
+        #    write_flow(np.array(a),'/home/fquesada/output.flo')
+        #    write_flow(np.array(b),'/home/fquesada/routput.flo')
     return np.mean(total_test_rmse)
 
 

@@ -34,7 +34,7 @@ def load_data_roya(path):
 
   flo, img0, img1 = [], [], []
   for video in videos:
-    img_paths = glob(os.path.join(video,'*.png')); img_path.sort()
+    img_paths = glob(os.path.join(video,'*.png')); img_paths.sort()
     img0_paths = img_paths[0:-1]
     img1_paths = img_paths[1:]
     flo_paths = [x.replace('.png', '.flo') for x in img0_paths]
@@ -55,6 +55,9 @@ class MyDataset(Dataset):
         img1 = cv.imread(self.img0_paths[i])
         img2 = cv.imread(self.img1_paths[i])
         flo = readFlowFile(self.flo_paths[i])
+        if i==100:
+            print(F'HOLA{size(img1)}')
+            print(f'FRANCE{size(flo)}')
         if self.transform is not None:
             img1,img2,flo = self.transform(img1,img2,flo)
         return img1, img2, flo
