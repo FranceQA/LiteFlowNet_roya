@@ -53,11 +53,11 @@ parser.add_argument('--logname', default='logname',
                     help='name of the log file')
 parser.add_argument('--database', default='/',
                     help='path to the database')
-parser.add_argument('--epochs', type=int, default=500,
+parser.add_argument('--epochs', type=int, default=60,
                     help='number of epochs to train')
-parser.add_argument('--loadmodel', default='home/fquesada/modelos/LFN/logname/finetune_6.tar',
+parser.add_argument('--loadmodel', default= None,
                     help='path of the pre-trained model')
-parser.add_argument('--savemodel', default='/home/fquesada/modelos/LFN',
+parser.add_argument('--savemodel', default='/home/fquesada/modelos/LFN_newflo',
                     help='path to save the model')
 parser.add_argument('--resume', default=None,
                     help='whether to reset moving mean / other hyperparameters')
@@ -67,7 +67,7 @@ parser.add_argument('--ngpus', type=int, default=2,
                     help='number of gpus to use.')
 args = parser.parse_args()
 
-baselr = 1.25e-4
+baselr = 0.000125
 batch_size = 8
 
 torch.cuda.set_device(0)
@@ -171,12 +171,12 @@ def main():
         scheduler.step(total_train_loss / len(TrainImgLoader))
 
     print('full finetune time = %.2f HR' % ((time.time() - start_full_time) / 3600))
-    torch.save(model.state_dict(), os.path.join(wandb.run.dir, 'model.pt'))
+#    torch.save(model.state_dict(), os.path.join(wandb.run.dir, 'model.pt'))
 
 if __name__ == '__main__':    
     wandb.init(
-               project="proyecto_roya",
+               project="proyecto_roya_LFN",
                name="liteflownet_roya",
                resume=True,
-               id="1")
+               id="0")
     main()

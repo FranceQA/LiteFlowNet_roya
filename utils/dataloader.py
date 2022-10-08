@@ -3,25 +3,48 @@ import cv2 as cv
 import numpy as np
 from glob import glob
 import os
+import matplotlib.pyplot as plt
+from scipy.interpolate import CloughTocher2DInterpolator
+import math
+from flowiz import read_flow, convert_from_flow
 
 
-def readFlowFile(filename):
-    import struct
-    import numpy as np
-    fid = open(filename, 'rb')
-    tag = struct.unpack('f', fid.read(4))[0]
-    width = struct.unpack('i', fid.read(4))[0]
-    height = struct.unpack('i', fid.read(4))[0]
-    img = []
-    while True:
-        try:
-            data = struct.unpack('f', fid.read(4))[0]
-            img.append(data)
-        except:
-            break
-    img = np.reshape(img, (width, height, -1))
-    return img
+def new_flow(flo,flo_limit):
+  xs =[]
+  ys =[]
+  za =[]
+  zb =[]
 
+  cx=0
+  for i in range(len(flo)):
+    cy=0
+    for j in range(len(flo[i])):
+      [x,y] = flo[i][j]
+      if (x>flo_limit) or (y>flo_limit):          #Rango mínimo de flujo en cualquier dirección / hipotenusa puede ser alternativa
+        xs.append(cx)             #Coordenadas
+        ys.append(cy)
+        za.append(x)
+        zb.append(y)
+      cy = cy+1
+    cx = cx+1
+
+  Y = np.linspace(0, 719, 720)
+  X = np.linspace(0, 1279, 1280)
+  X, Y = np.meshgrid(X, Y)  # 2D grid for interpolation
+  interp = CloughTocher2DInterpolator(list(zip(ys, xs)), za)
+  Za = interp(X, Y)
+  interp = CloughTocher2DInterpolator(list(zip(ys, xs)), zb)
+  Zb = interp(X, Y)
+
+  aux = np.stack((Za,Zb), axis=-1)
+
+  for i in range(len(aux)):
+    for j in range(len(aux[i])):
+      for k in range(len(aux[i][j])):
+        if math.isnan(aux[i][j][k]):
+          aux[i][j][k] = 0.0
+
+  return aux
 
 def load_data(path):
     flo_paths = glob(os.path.join(path, '*.flo'))
@@ -55,9 +78,6 @@ class MyDataset(Dataset):
         img1 = cv.imread(self.img0_paths[i])
         img2 = cv.imread(self.img1_paths[i])
         flo = readFlowFile(self.flo_paths[i])
-        if i==100:
-            print(F'HOLA{size(img1)}')
-            print(f'FRANCE{size(flo)}')
         if self.transform is not None:
             img1,img2,flo = self.transform(img1,img2,flo)
         return img1, img2, flo
@@ -73,7 +93,7 @@ class MyDataset_roya(Dataset):
     def __getitem__(self, i):
         img1 = cv.imread(self.img0_paths[i])
         img2 = cv.imread(self.img1_paths[i])
-        flo = readFlowFile(self.flo_paths[i])
+        flo = read_flow(self.flo_paths[i])
         img1 = cv.resize(img1,(256,256))
         img2 = cv.resize(img2,(256,256))
         flo = cv.resize(flo,(256,256))

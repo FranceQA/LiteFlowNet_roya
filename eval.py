@@ -68,7 +68,16 @@ def eval(model,ImgLoader):
         imgL, imgR, flowl0 = img1.cuda(), img2.cuda(), flo.cuda()
         output = model((imgL, imgR))
         total_test_rmse += [RMSE(output.detach(), flowl0.detach()).cpu().numpy()]
-        #if i == 200:
+        #print(f'Salida {output[0].cpu().detach().numpy().shape} y referencia {flowl0[0].cpu().detach().numpy().shape}')
+        #print(img1.cpu().detach().numpy().shape)
+        if i == 20:
+            flo1 = output[0].cpu().detach().numpy().reshape(256,256,2)
+            flo2 = flowl0[0].cpu().detach().numpy().reshape(256,256,2)
+            img = img1[0].cpu().detach().numpy().reshape(256,256,3)
+            #/home/fquesada/Documents/pruebas
+            write_flow(flo1,'/home/fquesada/Documents/pruebas/flo_out.flo')
+            write_flow(flo2,'/home/fquesada/Documents/pruebas/flo_ref.flo')
+            cv.imwrite('/home/fquesada/Documents/pruebas/imgp.png',img)
         #    a = output.detach().cpu()
         #    b = flowl0.detach().cpu()
         #    print(np.array(b))
